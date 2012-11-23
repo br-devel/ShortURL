@@ -151,7 +151,7 @@ class EtuDev_ShortURL_Manager {
 	/**
 	 * @param string $key
 	 *
-	 * @return Zend_Db_Table_Row|null
+	 * @return Zend_Db_Table_Row_Abstract|null
 	 */
 	static protected function getShortURLRowByKey($key) {
 		$id = EtuDev_ShortURL_Conversor::toDecimal($key);
@@ -165,7 +165,7 @@ class EtuDev_ShortURL_Manager {
 	/**
 	 * @param int $id
 	 *
-	 * @return Zend_Db_Table_Row|null
+	 * @return Zend_Db_Table_Row_Abstract|null
 	 */
 	static protected function getShortURLRowById($id) {
 		if (@static::$cached_entities_id[$id]) {
@@ -180,7 +180,7 @@ class EtuDev_ShortURL_Manager {
 	/**
 	 * @param string $long_url
 	 *
-	 * @return Zend_Db_Table_Row|null
+	 * @return Zend_Db_Table_Row_Abstract|null
 	 */
 	static protected function getShortURLRowByLongURL($long_url) {
 		if (@static::$cached_entities_long_url[$long_url]) {
@@ -192,7 +192,7 @@ class EtuDev_ShortURL_Manager {
 		return $x;
 	}
 
-	static protected function cacheRow(Zend_Db_Table_Row $x = null) {
+	static protected function cacheRow(Zend_Db_Table_Row_Abstract $x = null) {
 		static::$cached_entities_long_url[$x->long_url] = $x;
 		static::$cached_entities_id[$x->id]             = $x;
 	}
@@ -225,7 +225,7 @@ class EtuDev_ShortURL_Manager {
 			}
 			if (class_exists($table)) {
 				$t = new $table();
-				if ($t instanceof Zend_Db_Table) {
+				if ($t instanceof Zend_Db_Table_Abstract) {
 					static::$shortUrlTable = $t;
 					return true;
 				}
